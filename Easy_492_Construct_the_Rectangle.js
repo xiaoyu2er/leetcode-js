@@ -28,6 +28,13 @@
  * @param {number} area
  * @return {number[]}
  */
-var constructRectangle = function(area) {
+var constructRectangle = function (area) {
+
+    var w = Math.floor(Math.sqrt(area));
+    while (area % w != 0) w--;
+    return [area / w, w];
 
 };
+
+console.log(constructRectangle(4));
+console.log(constructRectangle(17));
