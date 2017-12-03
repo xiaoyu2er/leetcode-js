@@ -10,20 +10,33 @@
  */
 
 /**
+ * 思路介绍
+ * 1. 将第 i 个元素放到第 i 个坑
+ * 2. 遍历所有的坑, 找到数字不对应的坑
+ *
+ * 例如
+ *     [ 3, 4, -1, 1 ]
+ * --> [ -1, 4, 3, 1 ]
+ * --> [ -1, 1, 3, 4 ]
+ * --> [ 1, -1, 3, 4 ]
+ * --> 2
+ *
  * @param {number[]} nums
  * @return {number}
  */
 var firstMissingPositive = function (nums) {
     var n = nums.length;
     var i = 0;
+    // console.log(nums);
     while (i < n) {
         var c = nums[i];
         if (c > 0 && n < n + 1 && c !== i + 1 && nums[c - 1] !== nums[i]) {
             swap(nums, c - 1, i);
-            // i--;
+            // console.log('-->', nums);
         } else {
             i++;
         }
+
     }
 
     // console.log(nums);
@@ -40,6 +53,6 @@ function swap(nums, i, j) {
 }
 
 // console.log(firstMissingPositive([1, 2, 0]));
-// console.log(firstMissingPositive([3, 4, -1, 1]));
+console.log(firstMissingPositive([3, 4, -1, 1]));
 // console.log(firstMissingPositive([1, 1]));
-console.log(firstMissingPositive([2, 2]));
+// console.log(firstMissingPositive([2, 2]));
