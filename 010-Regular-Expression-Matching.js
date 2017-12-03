@@ -22,6 +22,14 @@
  */
 
 /**
+ *
+ * 解题思路
+ *
+ * 动态规划
+ * 注意体感要求, isMatch 为全匹配
+ * 例子中的 isMatch("aab", "c*a*b") -> true
+ * 是因为匹配 0个c, 2个a, 一个b
+ *
  * @param {string} s
  * @param {string} p
  * @return {boolean}
@@ -40,7 +48,12 @@ var isMatch = function (s, p) {
     for (var i = 0; i <= m; i++) {
         for (var j = 1; j <= n; j++) {
             if (p[j - 1] === '*') {
-                dp[i][j] = dp[i][j - 2] || (i > 0 && (s[i - 1] === p[j - 2] || p[j - 2] === '.') && dp[i - 1][j]);
+                // isMatch('a', 'a.*')
+                // 如果j-1是*, 那么j-2可以出现0次;
+                // 所以可以直接看 dp[i][j-2]
+                dp[i][j] = dp[i][j - 2] ||
+                    // isMatch('aa', 'aa*')
+                    (i > 0 && (s[i - 1] === p[j - 2] || p[j - 2] === '.') && dp[i - 1][j]);
             } else {
                 dp[i][j] = i > 0 && dp[i - 1][j - 1] &&
                     (s[i - 1] === p[j - 1] || p[j - 1] === '.');
@@ -48,9 +61,17 @@ var isMatch = function (s, p) {
         }
     }
 
-    // console.log(dp);
+    console.log(dp.map(a => a.map(a => a ? 1 : 0)));
     return dp[m][n];
 };
 
-console.log(isMatch("aab", "c*a*b"));
-console.log(isMatch("aasdfasdfasdfasdfas", "aasdf.*asdf.*asdf.*asdf.*s"));
+// console.log(isMatch("aa", "a"), '→', false)
+// console.log(isMatch("aa", "aa"), '→', true)
+// console.log(isMatch("aaa", "aa"), '→', false)
+// console.log(isMatch("aa", "a*"), '→', true)
+// console.log(isMatch("aa", ".*"), '→', true)
+// console.log(isMatch("ab", ".*"), '→', true)
+// console.log(isMatch("aab", "c*a*b"), '→', true)
+
+console.log(isMatch("a", "a.*"));
+// console.log(isMatch("aasdfasdfasdfasdfas", "aasdf.*asdf.*asdf.*asdf.*s"));

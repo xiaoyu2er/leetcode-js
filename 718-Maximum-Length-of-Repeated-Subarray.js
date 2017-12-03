@@ -6,8 +6,8 @@
  *
  * Example 1:
  * Input:
- * A: [1,2,3,2,1]
- * B:
+ * A: [1, 2, 3, 2, 1]
+ * B: [3, 2, 1, 4, 7, 8]
  * Output: 3
  * Explanation:
  * The repeated subarray with maximum length is [3, 2, 1].
@@ -19,6 +19,13 @@
  */
 
 /**
+ * 解题思路
+ *
+ * 动态规划
+ *
+ * dp[i][j] 以 A[i-1] B[j-1] 结尾的最长子串长度
+ * dp[i][j] = A[i - 1] === B[j - 1] ? dp[i - 1][j - 1] + 1 : 0;
+ *
  * @param {number[]} A
  * @param {number[]} B
  * @return {number}
