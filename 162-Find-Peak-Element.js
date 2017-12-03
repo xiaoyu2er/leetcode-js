@@ -10,35 +10,22 @@
  */
 
 /**
+ *
  * @param {number[]} nums
  * @return {number}
  */
 var findPeakElement = function (nums) {
-    if (nums.length === 1) return 0;
-    nums.unshift(nums[0] - 1);
-    nums.push(nums[nums.length - 1] - 1);
-    var i = 1;
-    var j = nums.length - 2;
-    while (i < j) {
-        var half = Math.floor((i + j ) / 2);
-        // console.log(i, j, half, nums[half]);
-        if (isPeak(nums, half)) return half - 1;
-        if (i === half) return j - 1;
-
-        if (nums[half - 1] > nums[half]) j = half;
-        else i = half;
+    for (var i = 1; i < nums.length; i++) {
+        if (nums[i - 1] > nums[i]) return i - 1;
     }
-    return 0;
+    return nums.length - 1;
 };
 
-function isPeak(nums, i) {
-    var a = nums[i - 1];
-    var b = nums[i];
-    var c = nums[i + 1];
-    return b > a && b > c;
-}
+// ================================================
 
 /**
+ * 二分查找
+ *
  * @param {number[]} nums
  * @return {number}
  */
@@ -53,6 +40,9 @@ var findPeakElement = function (nums) {
     }
     return l;
 };
+
+// ================================================
+
 console.log(findPeakElement([3, 2, 1]), 0);
-console.log(findPeakElement([1, 2, 3]), 2);
+console.log(findPeakElement([1, 2, 3, 1]), 2);
 console.log(findPeakElement([1, 3, 2]), 1);

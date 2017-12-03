@@ -22,20 +22,25 @@
  */
 var isHappy = function (n) {
 
-    var num = n;
-    var results = [];
+    var results = [n];
+
     while (true) {
-        var digits = ('' + num).split('');
-        var newN = squareSumOfDigits(digits);
-        if (newN === 1) return true;
-        if (results.indexOf(newN) > -1) return false;
-        results.push(newN);
-        num = newN;
+        n = squareSumOfDigits(n);
+        // console.log(n);
+        if (n === 1) return true;
+        if (results.indexOf(n) > -1) return false;
+        results.push(n);
     }
 };
 
-function squareSumOfDigits(digits) {
-    return digits.reduce((sum, d) => sum += d * d, 0);
+function squareSumOfDigits(n) {
+    var sum = 0, tmp;
+    while (n) {
+        tmp = n % 10;
+        sum += tmp * tmp;
+        n = Math.floor(n / 10);
+    }
+    return sum;
 }
 
 console.log(isHappy(1));
