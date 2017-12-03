@@ -15,25 +15,20 @@
  */
 
 /**
+ * 解题思路
+ *
+ * 找到不比目标元素大的索引即可
+ *
  * @param {number[]} nums
  * @param {number} target
  * @return {number}
  */
 var searchInsert = function (nums, target) {
 
-    var index = 0;
     for (var i = 0; i < nums.length; i++) {
-        var temp = nums[i];
-        if (target === temp) {
-            return i;
-        }
-        else if (target > temp) {
-            index++;
-        } else {
-            return index;
-        }
+        if (target <= nums[i]) return i;
     }
-    return index;
+    return i;
 
 };
 
